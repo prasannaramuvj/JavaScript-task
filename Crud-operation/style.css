@@ -14,7 +14,7 @@ td button{
   align-items: flex-start;
   padding: 0;
 }
-.modal-body form .imageholder{
+.modal-body form .imgholder{
   flex-basis: 32%;
   height:100%;
   width:200px;
@@ -25,14 +25,14 @@ td button{
   border-left:5px groove blue;
   padding-left: 20px   ;
 }
-.modal-body form .imageholder{
+.modal-body form .imgholder{
     width: 200px;
     height: 200px;
     position: relative;
     border-radius: 20px;
     overflow: hidden;
 }
-.imageholder .upload{
+.imgholder .upload{
     position: absolute;
     bottom: 0;
     left: 10;
@@ -44,10 +44,10 @@ td button{
     align-items: center;
     cursor: pointer;
 }
-.imageholder:hover .upload{
+.imgholder:hover .upload{
     display: flex;
 }
-.imageholder .upload input{
+.imgholder .upload input{
     display: none;
 }
 form .input-field > div{
@@ -71,4 +71,14 @@ form .input-field > div input{
   outline: none;
   border-bottom: 2px solid black;
   background: transparent;
+}
+#readData{
+  background-color: #4e4e4e;
+}
+#readData .modal-body{
+  background-color: #817a7a;
+}
+#readData .input-field input{
+  font-size: 20px;
+  color: #fff;
 }

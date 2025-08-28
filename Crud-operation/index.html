@@ -18,7 +18,7 @@
   <section class="p-3">
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalid">New user <i class="bi bi-people"></i></button>
+        <button class="btn btn-success newUser" data-bs-toggle="modal" data-bs-target="#useForm">New user <i class="bi bi-people"></i></button>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
           <thead>
             <tr>
               <th>S.no</th>
-              <th>Picture</th>
+              <!-- <th>Picture</th> -->
               <th>Name</th>
               <th>Age</th>
               <th>City</th>
@@ -40,20 +40,6 @@
             </tr>
           </thead>
           <tbody id="data">
-            <td>1</td>
-            <td></td>
-            <td>John</td>
-            <td>22</td>
-            <td>Thanjavur</td>
-            <td>abc@gmail.com</td>
-            <td>9876543210</td>
-            <td></td>
-            <td>12/5/25</td>
-            <td>
-              <button class="btn btn-success"><i class="bi bi-eye"></i></button>
-              <button class="btn btn-danger"><i class="bi bi-trash3"></i></button>
-              <button class="btn btn-primary"><i class="bi bi-pen-fill"></i></button>
-            </td>
           </tbody>
         </table>
       </div>
@@ -69,7 +55,7 @@
 
 
 
-        <div class="modal fade" id="modalid">
+        <div class="modal fade" id="useForm">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -77,96 +63,118 @@
                 <button class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form action="#" id="myforms">
-                  <div class="card imageholder">
-                    <label for="inputImage" class="upload">
-                      <input type="file" name="" id="inputImage">
+                <form action="#" id="myForm">
+                  <!-- <div class="card imgholder">
+                    <label for="imgInput" class="upload">
+                      <input type="file" name="" id="imgInput">
                       <i class="bi bi-person-circle"></i>
                     </label>
-                    <img src="Profile Icon.webp" class="img" alt="">
-                  </div>
+                    <img src="img/Profile Icon.webp" class="img" alt="" width="200" height="200">
+                  </div> -->
 
 
 
                   <div class="input-field">
                     <div>
                         <label for="name">Name:</label>
-                        <input type="text" id="name">
+                        <input type="text" id="name" required>
                     </div>
                       <div>
                         <label for="age">Age:</label>
-                        <input type="number" id="age">
+                        <input type="number" id="age" required>
                     </div>
                       <div>
                         <label for="city">City:</label>
-                        <input type="text" id="city">
+                        <input type="text" id="city" required>
                     </div>
                     <div>
                         <label for="email">Mail:</label>
-                        <input type="email" id="email">
+                        <input type="email" id="email" required>
                     </div>
                     <div>
                           <label for="phone">Phone:</label>
-                          <input type="number" id="phone" minlength="11" maxlength="11">
+                          <input type="number" id="phone" minlength="10" maxlength="10" required>
                     </div>
                     <div>
                           <label for="post">Post:</label>
-                          <input type="text" id="post">
+                          <input type="text" id="post" required>
                     </div>
                     <div>
-                          <label for="date">Date:</label>
-                          <input type="date" id="date">
+                          <label for="sDate">Date:</label>
+                          <input type="date" id="sDate" required>
                     </div>
                   </div>
                   </form>
                   <div class="modal-footer">
-                    <button class ="btn btn-success">Save</button>
-                     <button class="btn btn-danger"  data-bs-dismiss="modal">Close</button>
+                    <button type ="submit"form="myForm" class ="btn btn-success submit">Save</button>
+                     <button type="button"  class="btn btn-danger"  data-bs-dismiss="modal">Close</button>
+                     </div>
                 </form>
 
-              </div>
             </div>
           </div>
         </div>
+        </div>
+        
+
+        <!-- //---------------------------------------------------------------------------------------------// -->
       
+        <div class="modal fade" id="readData">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="modal-title">Profile</div>
+                <button class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="#" id="myForm">
+                  <!-- <div class="card imgholder">
+                    <label for="inputImage" class="upload">
+                      <input type="file" name="" id="inputImage">
+                      <i class="bi bi-person-circle"></i>
+                    </label>
+                    <img src="img/Profile Icon.webp" class="img1" alt="" width="200" height="200" class="showImg">
+                  </div> -->
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  <div class="input-field">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text"  name="" id="showName" disabled>
+                    </div>
+                      <div>
+                        <label for="age">Age:</label>
+                        <input type="number" name="" id="showAge" disabled>
+                    </div>
+                      <div>
+                        <label for="city">City:</label>
+                        <input type="text" name="" id="showCity" disabled>
+                    </div>
+                    <div>
+                        <label for="email">Mail:</label>
+                        <input type="email" name="" id="showEmail" disabled>
+                    </div>
+                    <div>
+                          <label for="phone">Phone:</label>
+                          <input type="number" name="" id="showPhone" minlength="10" maxlength="10" disabled>
+                    </div>
+                    <div>
+                          <label for="post">Post:</label>
+                          <input type="text" name="" id="showPost" disabled>
+                    </div>
+                    <div>
+                          <label for="sDate">Date:</label>
+                          <input type="date" name="" id="showsDate" disabled>
+                    </div>
+                </div>
+                </form>
+              </div>
+             </div>
+           </div>
+        </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src = "script.js"></script>
 
   </body>
 </html>
