@@ -1,315 +1,168 @@
-
-let form = document.getElementById("myForm");
-let imgInput = document.querySelector(".img");
-let file = document.getElementById("imgInput");
-let userName = document.getElementById("name");
-let age = document.getElementById("age");
-let city =document.getElementById("city");
-let email = document.getElementById("email");
-let phone = document.getElementById("phone");
-let post = document.getElementById("post");
-let sDate = document.getElementById("sDate");
-let submitBtn = document.querySelector(".submit");
-let userInfo = document.getElementById("data");
-let modal = document.getElementById('useForm');
-let modalTitle = document.querySelector("#useForm .modal-title");
-let newUserBtn = document.querySelector(".newUser");
-
-
-let getData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')):[]
+let form = document.querySelector('#form');
+let name = document.querySelector('#name');
+let age = document.querySelector('#age');
+let email = document.querySelector('#email');
+let city = document.querySelector('#city');
+let date = document.querySelector('#date');
+let phone = document.querySelector('#phone');
+let file = document.querySelector('#imgInput');
+let imgInput = document.querySelector('#img');
+let submitBtn = document.querySelector('#submitBtn');
 
 
 
+let userData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : [];
 
 let isEdit = false;
 let editId;
 
 
-// showInfo()
+window.onload = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const editIndex = urlParams.get('edit');
 
+  if (editIndex != null) {
+    isEdit = true;
+    editId = parseInt(editIndex, 10);
 
-newUserBtn.addEventListener('click',()=>{
-  submitBtn.innerText = "submit"
-  modalTitle.innerText = "Fill the Form"
-  isEdit = false
-  // imgInput.src ="./image/Profile Icon.webp"
+ 
+     
 
-  form.reset()
+    const user = userData[editId];
+    
+    name.value = user.name;
+    age.value = user.age;
+    email.value = user.email;
+    city.value = user.city;
+    // date.value = user.date;
+     const [day, month, year] = user.date.split("-");
+    date.value = `${year}-${month}-${day}`;
+    phone.value = user.phone;
+    imgInput.src = user.picture;
+     
+    submitBtn.innerHTML="update";
+  }
+};
 
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
- document.querySelectorAll('.error').forEach(spans=> spans.innerHTML = "");
+  if (validateInput()) {
 
- document.querySelectorAll('.line').forEach(lines=>lines.style.border="");
-  imgInput.src = "img/Profile Icon.webp";
+      const [year, month, day] = date.value.split("-");
+    const formattedDate = `${day}-${month}-${year}`;
+     
+    const userInfo = {
+      picture: imgInput.src,
+      name: name.value,
+      age: age.value,
+      email: email.value,
+      city: city.value,
+      date: formattedDate,
+      phone: phone.value
+    };
 
-})
-
-
-
-file.onchange=function(){
-
-  if(file.files[0].size<1000000){
-    let fileReader = new FileReader();
-
-    fileReader.onload=function(e){
-      imgUrl = e.target.result;
-      imgInput.src=imgUrl
+    if (isEdit) {
+      
+      userData[editId] = userInfo;
+    } else {
+      
+      userData.push(userInfo);
     }
 
-    fileReader.readAsDataURL(file.files[0])
-  }
-  else{
-    alert('file size is high');
-  }
-}
+    localStorage.setItem('userProfile', JSON.stringify(userData));
 
-
-function showInfo(){
-
-
- userInfo.innerHTML = ""
-  getData.forEach((element,index) =>{
-    let CreateElement = `<tr class = "employeeDetails">
-    <td>${index+1}</td>
-    <td><img src = "${element.picture}" width="50" height="50"></td>
-    <td>${element.employeeName}</td>
-    <td>${element.employeeAge}</td>
-    <td>${element.employeeCity}</td>
-    <td>${element.employeeEmail}</td>
-    <td>${element.employeePhone}</td>
-    <td>${element.employeePost}</td>
-    <td>${element.startDate}</td>
-
-    <td>
-    <button class="btn btn-success" onclick="readInfo('${element.picture}','${element.employeeName}','${element.employeeAge}','${element.employeeCity}','${element.employeeEmail}','${element.employeePhone}','${element.employeePost}','${element.startDate}')" data-bs-toggle="modal" data-bs-target="#readData">
-    <i class="bi bi-eye"></i>
-    </button>
-
-    <button class="btn btn-primary" onclick="editInfo(${index},'${element.picture}','${element.employeeName}','${element.employeeAge}','${element.employeeCity}','${element.employeeEmail}','${element.employeePhone}','${element.employeePost}','${element.startDate}')" data-bs-toggle="modal" data-bs-target="#useForm">
-    <i class="bi bi-pencil-square"></i>
-    </button>
-
-    <button class="btn btn-danger" onclick="deleteInfo(${index})">
-    <i class="bi bi-trash"></i>
-    </button>
-    </td>
-    <tr>`
-
-
-    userInfo.innerHTML += CreateElement
-
-  })
-
-  }
-
-  showInfo()
-
-function readInfo( pic,name, age, city, email, phone, post, Sdate){
-    document.querySelector('#showImg').src = pic;
-    document.querySelector('#showName').value = name;
-    document.querySelector("#showAge").value = age;
-    document.querySelector("#showCity").value = city;
-    document.querySelector("#showEmail").value = email;
-    document.querySelector("#showPhone").value = phone;
-    document.querySelector("#showPost").value = post;
-    document.querySelector("#showsDate").value = Sdate;
-
-}
-
-function editInfo(index,pic, name, Age, City, Email, Phone, Post, Sdate){
-    isEdit = true            
-    editId = index           
-    imgInput.src = pic       
-    userName.value = name 
-    age.value = Age
-    city.value = City
-    email.value = Email
-    phone.value = Phone
-    post.value = Post
-    sDate.value = Sdate
-
-    submitBtn.innerText = "Update"      
-    modalTitle.innerText = "Update The Form" 
-}
-
-
-function deleteInfo(index){
-  if(confirm("are you sure")){
-    getData.splice(index,1)
-    localStorage.setItem("userProfile",JSON.stringify(getData))
-    showInfo()
-  }
-
-}
-
-
-form.addEventListener('submit' ,(e)=>{
-  e.preventDefault()
-   
-
-let isFormvalid = checkValidation(userName)
-
-if(isFormvalid){
-  const information = {
-    picture:imgInput.src == undefined ? "img/Profile Icon.webp" :imgInput.src,
-    employeeName:userName.value,
-    employeeAge:age.value,
-    employeeCity:city.value,
-    employeeEmail:email.value,
-    employeePhone:phone.value,
-    employeePost:post.value,
-    startDate: sDate.value
-  }
-
-
-
-
-  if(!isEdit){
-    getData.push(information)
-  }
-  else{
-    isEdit = false
-    getData[editId]=information
-  }
-
-      localStorage.setItem('userProfile', JSON.stringify(getData))
-         submitBtn.innerText = "Submit"
-    modalTitle.innerHTML = "Fill The Form"
-    showInfo()
-    form.reset()
-
-
-      imgInput.src = "img/Profile Icon.webp";
-
-
-
-
-}
-
-
-
-})
-
-
-
-function checkValidation(userName){
-  
-let isValid = true;
-
-  if(userName.value.trim() === "" || /\d/.test(userName.value.trim())){
-    isValid = false;
-    userName.style.border = "1px solid red";
-    document.querySelector('#nameerrorid').innerHTML= "Name is required";
     
-  
+    window.location.href = 'table.html';
   }
-  else{
-    document.querySelector('#nameerrorid').innerHTML= "";
-        userName.style.border = "";
+});
 
+
+file.onchange = function() {
+  if (file.files[0] && file.files[0].size < 1000000) { 
+    let fileReader = new FileReader();
+    fileReader.onload = function(e) {
+      imgInput.src = e.target.result;
+    }
+    fileReader.readAsDataURL(file.files[0]);
+  } else {
+    alert('File is too large or not selected');
   }
-//-------------------------------------------------------------------------------------------//
-  
-  if(age.value.trim() === ""){
-    isValid = false;
-    age.style.border = "1px solid red";
-    document.querySelector('#ageerrorid').innerHTML = "Age is required";
-  }
-  else if(age.value.trim()<18){
-    document.querySelector('#ageerrorid').innerHTML = " Age must be above 18";
-    isValid = false;
-    age.style.border = "1px solid red";
-
-  }
-  else{
-    document.querySelector('#ageerrorid').innerHTML = "";
-    age.style.border = "";
+}
 
 
-  }
-//-----------------------------------------------------------------------------------------------//
+function validateInput(){
+  const Name = name.value.trim();
+  const Age = age.value.trim();
+  const Mail = email.value.trim();
+  const City = city.value.trim();
+  const Date = date.value.trim();
+  const Phone = phone.value.trim();
+  let success = true;
 
- if(city.value.trim() === "" || /\d/.test(city.value.trim())){
-    isValid = false;
-    city.style.border = "1px solid red";
-    document.querySelector('#cityerrorid').innerHTML = "City is required";
-  }
-  else{
-    document.querySelector('#cityerrorid').innerHTML = "";
-    city.style.border = "";
-
-
-  }
-//-----------------------------------------------------------------------------------------//
-
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
- if(email.value.trim() === ""){
-    isValid = false;
-    email.style.border = "1px solid red";
-
-    document.querySelector('#emailerrorid').innerHTML = "Email is required";
+  if(Name === "" || /\d/.test(Name)){
+    success = false;
+    setError(name,"Name is required");
+  } else {
+    setSuccess(name);
   }
 
-  else if(!emailPattern.test(email.value.trim())){
-    isValid = false;
-    email.style.border = "1px solid red";
-
-    document.querySelector('#emailerrorid').innerHTML = " Enter the valid format of Email id";
-
-
-  }
-  else{
-    email.style.border = "";
-
-    document.querySelector('#emailerrorid').innerHTML = "";
-
+  if(Age === "" || Age < 18){
+    success = false;
+    setError(age,"Age must be 18 or above");
+  } else {
+    setSuccess(age);
   }
 
-  //--------------------------------------------------------------------------------//
-    const phonePattern = /^\d{10}$/;
-
-   if(phone.value.trim() === "" ||!phonePattern.test(phone.value.trim())){
-    isValid = false;
-    phone.style.border = "1px solid red";
-
-    document.querySelector('#phoneerrorid').innerHTML = "phone no is required number must be in 10 digit";
-  }
-  else{
-    document.querySelector('#phoneerrorid').innerHTML = "";
-    phone.style.border = "";
-
-
-  }
-  //-----------------------------------------------------------------------------------//
-    const postPattern = /^\d{6}$/;
-
-   if(post.value.trim() === "" || !postPattern.test(post.value.trim())){
-    isValid = false;
-    post.style.border = "1px solid red";
-
-    document.querySelector('#posterrorid').innerHTML = "post is required number must be in six digit";
-  }
-  else{
-    document.querySelector('#posterrorid').innerHTML = "";
-    post.style.border = "";
-
-
+  let Mailcheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(Mail === "" || !Mailcheck.test(Mail)){
+    success = false;
+    setError(email,"Valid email is required");
+  } else {
+    setSuccess(email);
   }
 
-  //----------------------------------------------------------------------------------------//
-   if(sDate.value.trim() === ""){
-    isValid = false;
-    sDate.style.border = "1px solid red";
-
-    document.querySelector('#sDateerrorid').innerHTML = "starting date  is required";
-  }
-  else{
-    document.querySelector('#sDateerrorid').innerHTML = "";
-    sDate.style.border = "";
-
-
+  if(City === "" || /\d/.test(City)){
+    success = false;
+    setError(city,"City name is required");
+  } else {
+    setSuccess(city);
   }
 
-//---------------------------------------------------------//
-  return isValid
+  if(Date === ""){
+    success = false;
+    setError(date," Date must be required");
+  } else {
+    setSuccess(date);
+  }
+
+  if(Phone === "" || !/^\d{10}$/.test(Phone)){
+    success = false;
+    setError(phone,"Phone number must be 10 digits");
+  } else {
+    setSuccess(phone);
+  }
+
+  return success;
+}
+document.querySelectorAll('.line').forEach(input => {
+  input.addEventListener('input', () => {
+    validateInput(); 
+  });
+});
+
+function setError(element,message){
+  const inputGroup = element.parentElement;
+  const errorElement = inputGroup.querySelector('.error');
+  errorElement.innerHTML = message;
+  inputGroup.classList.add('error');
+  inputGroup.classList.remove('success');
+}
+
+function setSuccess(element){
+  const inputGroup = element.parentElement;
+  const errorElement = inputGroup.querySelector('.error');
+  errorElement.innerHTML = "";
+  inputGroup.classList.add('success');
+  inputGroup.classList.remove('error');
 }
