@@ -36,7 +36,7 @@ const title = document.getElementById("form-title");
 
       const user = {
         name: document.getElementById("name").value,
-        email: document.getElementById("mail").value,
+        mail: document.getElementById("mail").value,
         address: document.getElementById("address").value,
         pin: document.getElementById("pin").value
       };

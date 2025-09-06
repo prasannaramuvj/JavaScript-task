@@ -3,28 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style.css">
+  <title>User Records</title>
+  <link rel="stylesheet" href="style1.css">
 </head>
 <body>
-  <div>
-    <table border="1">
-      <thead>
-        <th>S.no</th>
-        <th>User ID</th>
-        <th>Name</th>
-        <th>Mail id</th>
-        <th>Address</th>
-        <th>Pin-code</th>
-        <th>Operation</th>
-      </thead>
-      <tbody id="table-body">
-        
+  <div class="table-container">
+    <h2 class="table-title">Registered Users</h2>
 
-      </tbody>
-    </table>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search by name, email or address...">
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>S.no</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Pin-code</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+    </div>
   </div>
-  <script src = "table.js"></script>
-
+  <script src="table.js"></script>
 </body>
 </html>
