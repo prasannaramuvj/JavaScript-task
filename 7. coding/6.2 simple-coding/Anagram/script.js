@@ -25,44 +25,44 @@
 
 
 
-  function anagram1(num1,num2){
+  // function anagram1(num1,num2){
 
 
     
 
 
-    num1  = num1.toString().split('').sort().join('');
-    num2  = num2.toString().split('').sort().join('');
+  //   num1  = num1.toString().split('').sort().join('');
+  //   num2  = num2.toString().split('').sort().join('');
 
 
 
-    if(num1 === num2){
-      return true;
-    }
+  //   if(num1 === num2){
+  //     return true;
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 
-  console.log(anagram1(123,321));
+  // console.log(anagram1(123,321));
 
   //-----------------------------------------array----------------------------------------------//
 
 
 
-  function anagramarray(arr1,arr2){
+  // function anagramarray(arr1,arr2){
 
-    if(arr1.length !== arr2.length)  return false;
+  //   if(arr1.length !== arr2.length)  return false;
 
-    arr1 = arr1.sort();
-    arr2 = arr2.sort();
+  //   arr1 = arr1.sort();
+  //   arr2 = arr2.sort();
 
-    for(let i = 0 ; i<arr1.length;i++){
+  //   for(let i = 0 ; i<arr1.length;i++){
 
-      if(arr1[i] !== arr2[i]) return false;
+  //     if(arr1[i] !== arr2[i]) return false;
 
 
-    }
-    return true;
-  }
+  //   }
+  //   return true;
+  // }
 
-  console.log(anagramarray([1,2,3],[3,2,1]));
+  // console.log(anagramarray([1,2,3],[3,2,1]));

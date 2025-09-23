@@ -27,34 +27,34 @@ console.log(isPalindrome(123));
 //----------------------------------------------string-----------------------------------------//
 
 
-function isPalindromeString(str){
+// function isPalindromeString(str){
 
 
-  let ans = str.split('').reverse().join('');
+//   let ans = str.split('').reverse().join('');
 
-  return str === ans;
-}
+//   return str === ans;
+// }
 
-console.log(isPalindromeString("ollo"));
+// console.log(isPalindromeString("ollo"));
 
 
 //--------------------------------------------array-------------------------------------------------------//
 
-function isPalindromeArray(arr){
+// function isPalindromeArray(arr){
 
 
-  let start = 0;
-  let end = arr.length - 1;
+//   let start = 0;
+//   let end = arr.length - 1;
 
-  while(start < end) {
+//   while(start < end) {
 
-    if(arr[start] !== arr[end]) return false;
+//     if(arr[start] !== arr[end]) return false;
 
-    start++;
-    end--;
-  }
-  return true;
-}
+//     start++;
+//     end--;
+//   }
+//   return true;
+// }
 
-console.log(isPalindromeArray([1,2,34,5]));
+// console.log(isPalindromeArray([1,2,34,5]));
 
