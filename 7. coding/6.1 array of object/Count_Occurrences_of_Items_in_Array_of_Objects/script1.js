@@ -31,10 +31,6 @@ function countoccurence(arr,key){
       count[dummycount] = 1;
     }
 
-
-
-
-
   }
   return count;
 }
